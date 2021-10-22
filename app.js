@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
-let port = process.env.PORT || 5000;
+
 require('dotenv').config();
 
 const homeStartingContent = "This blog is only used for either publishing or reading.";
@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://aj123:test123@blog.z0is7.mongodb.net/myFirstDatabase?retryWrites=true/blogDB", {useNewUrlParser: true , useUnifiedTopology: true}) ;
+mongoose.connect(process.env.DB, {useNewUrlParser: true , useUnifiedTopology: true}) ;
 
 const postSchema = {
   title: String,
@@ -86,6 +86,6 @@ app.post("/contact", function(req, res){
 })
 
 //server on port
-app.listen(port, function() {
+app.listen(process.env.port, function() {
   console.log("Server started on port 3000");
 });
